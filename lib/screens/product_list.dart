@@ -63,18 +63,18 @@ class _ProductListState extends State {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductAdd(),));
     if(result != null){
       if(result){
-        getProducts();
+         getProducts();
       }
     }
  }
 
-  void getProducts() async {
+  void getProducts()  {
     var futureProducts = dbHelper.getProducts();
     futureProducts.then((data){
-      this.products = data;
-      productCount = data.length;
-      print(this.products);
-      print(productCount);
+      setState(() {
+        this.products = data;
+        productCount = data.length;
+      });
     });
   }
 
@@ -82,7 +82,7 @@ class _ProductListState extends State {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product),));
     if(result != null){
       if(result){
-        getProducts();
+         getProducts();
       }
     }
   }

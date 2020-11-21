@@ -31,7 +31,7 @@ class ProductDetailState extends State {
         title: Text("Product Detail : ${product.name}"),
         actions: <Widget>[
          PopupMenuButton<Options>(
-           onSelected: selectProcess ,
+           onSelected: selectProcess,
            itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
              PopupMenuItem<Options>(
                value: Options.delete,

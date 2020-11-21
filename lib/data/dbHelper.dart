@@ -46,7 +46,7 @@ class DbHelper{
 
   Future<int> delete(int id) async{
     Database db = await this.db;
-    var result = await db.rawDelete("delete from products where id=$id");
+    var result = await db.rawDelete("DELETE FROM products WHERE id = ${id}");
     return result;
   }
 
