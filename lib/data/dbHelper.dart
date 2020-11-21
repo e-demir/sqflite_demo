@@ -32,9 +32,10 @@ class DbHelper{
   Future<List> getProducts() async{
     Database db = await this.db;
     var result = await db.query("products");
-    return List.generate(result.length, (index) {
+    var list = List.generate(result.length, (index) {
      return Product.fromObject(result[index]);
     });
+    return list;
   }
 
   Future<int> insert(Product product) async{
