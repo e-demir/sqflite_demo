@@ -19,10 +19,21 @@ class ProductDetail extends StatefulWidget{
 
 class ProductDetailState extends State {
 
+  var txtName = TextEditingController();
+  var txtDescription = TextEditingController();
+  var txtUnitPrice = TextEditingController();
   Product product;
   ProductDetailState(this.product);
   var dbHelper = DbHelper();
-  
+
+  @override
+  void initState() {
+    txtName.text = product.name;
+    txtDescription.text = product.description;
+    txtUnitPrice.text = product.unitPrice.toString();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -52,13 +63,51 @@ class ProductDetailState extends State {
 
   }
 
-  buildProductDetail() {}
+  buildProductDetail() {
+    return Padding(
+      padding: EdgeInsets.all(30.0),
+      child: Column(
+        children: <Widget>[
+          buildNameField(),
+          buildDescription(),
+          buildUnitPrice(),
+        ],
+      ),
+    );
 
-  void selectProcess(Options value) async {
 
-    switch (value){
+  }
+
+  buildNameField() {
+    return TextField(
+      decoration: InputDecoration(labelText: "Product Name"),
+      controller: txtName,
+    );
+  }
+
+  buildDescription() {
+    return TextField(
+      decoration: InputDecoration(labelText: "Product Description"),
+      controller: txtDescription,
+    );
+  }
+
+  buildUnitPrice() {
+    return TextField(
+      decoration: InputDecoration(labelText: "Product Price"),
+      controller: txtUnitPrice,
+    );
+  }
+
+
+  void selectProcess(Options options) async {
+    switch (options){
       case Options.delete:
         dbHelper.delete(product.id);
+        Navigator.pop(context,true);
+        break;
+      case Options.update:
+        dbHelper.update(Product(product.id, txtName.text,txtDescription.text, double.tryParse(txtUnitPrice.toString())));
         Navigator.pop(context,true);
         break;
       default:

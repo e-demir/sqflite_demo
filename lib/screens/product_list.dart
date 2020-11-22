@@ -68,13 +68,15 @@ class _ProductListState extends State {
     }
  }
 
-  void getProducts()  {
+  void getProducts() async {
     var futureProducts = dbHelper.getProducts();
     futureProducts.then((data){
+
       setState(() {
         this.products = data;
         productCount = data.length;
       });
+
     });
   }
 
@@ -82,7 +84,7 @@ class _ProductListState extends State {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product),));
     if(result != null){
       if(result){
-         getProducts();
+        getProducts();
       }
     }
   }

@@ -14,7 +14,6 @@ class DbHelper{
       _db =await initializeDb();
     }
     return _db;
-
   }
 
  Future<Database>initializeDb() async {
@@ -23,7 +22,6 @@ class DbHelper{
     var eTradeDb = await openDatabase(dbPath,version: 1,onCreate: createDb);
     return eTradeDb;
  }
-
 
   void createDb(Database db, int version) async {
    await db.execute("Create table products(id integer primary key, name text, description text, unitPrice integer)");
